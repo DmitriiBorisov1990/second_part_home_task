@@ -1,7 +1,5 @@
 package com.epam.borisov.task_1.facultyes;
 
-import com.epam.borisov.task_1.groups.Group;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +7,6 @@ public class Faculty {
 
     private String facultyName;
     private List<Group> groupList;
-
-    public Faculty(String facultyName) {
-        this.facultyName = facultyName;
-    }
 
     public Faculty(String facultyName,List<Group> groupList) {
         this.facultyName = facultyName;

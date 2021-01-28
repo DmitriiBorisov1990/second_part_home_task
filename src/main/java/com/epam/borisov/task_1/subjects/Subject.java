@@ -1,3 +1,4 @@
+
 package com.epam.borisov.task_1.subjects;
 
 import java.util.Arrays;
@@ -29,3 +30,4 @@ public class Subject {
         return "Subject -> " + subjectName + " marks : " + Arrays.toString(marks);
     }
 }
+

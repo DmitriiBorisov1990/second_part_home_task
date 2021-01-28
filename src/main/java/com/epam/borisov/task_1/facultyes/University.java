@@ -1,3 +1,4 @@
+
 package com.epam.borisov.task_1.facultyes;
 
 import java.util.List;
@@ -7,10 +8,7 @@ public class University {
     private String universityName;
     private List<Faculty> facultyList;
 
-    public University(String universityName) {
-        this.universityName = universityName;
-    }
-    public University(String universityName,List<Faculty> faculties){
+    public University(String universityName, List<Faculty> faculties) {
         this.universityName = universityName;
         this.facultyList = faculties;
     }
@@ -25,6 +23,7 @@ public class University {
 
     @Override
     public String toString() {
-        return "University " + universityName  + "\nfaculty list " + facultyList;
+        return "University : " + universityName + ".\nfaculty list : " + facultyList;
     }
 }
+
