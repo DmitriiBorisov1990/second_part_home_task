@@ -17,13 +17,25 @@ public class University {
         return facultyList;
     }
 
-    public void setFacultyList(List<Faculty> facultyList) {
-        this.facultyList = facultyList;
+    public void averageUniversitySubjectGrade(String subjectName) {
+        float averageTempMark = 0;
+        int counter = 0;
+        for (Faculty faculty : facultyList) {
+            for (Student student : faculty.getGroupList()) {
+                for (Subject subject : student.getSubjectList()) {
+                    if (subject.getSubjectName().equals(subjectName)) {
+                        averageTempMark += subject.averageSubjectMark();
+                        counter++;
+                    }
+                }
+            }
+        }
+        System.out.println("Average university grade in " + subjectName + ": " + averageTempMark / counter);
     }
 
     @Override
     public String toString() {
-        return "University : " + universityName + ".\nfaculty list : " + facultyList;
+        return "University : " + universityName + ". Faculty list : " + facultyList;
     }
 }
 
