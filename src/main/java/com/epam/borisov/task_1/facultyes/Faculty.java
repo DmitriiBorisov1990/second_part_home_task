@@ -1,5 +1,7 @@
 package com.epam.borisov.task_1.facultyes;
 
+import com.epam.borisov.task_1.exception.Absence;
+
 import java.util.List;
 
 public class Faculty {
@@ -11,13 +13,21 @@ public class Faculty {
     public Faculty(String facultyName, Groups group) {
         this.facultyName = facultyName;
         if (facultyName.equals(AVIATION)) {
-            this.groupList = group.getStudentListGroupOfAviationFaculty();
+            try {
+                this.groupList = group.getStudentListGroupOfAviationFaculty();
+            } catch (Absence e) {
+                e.printStackTrace();
+            }
         } else {
-            this.groupList = group.getStudentListGroupOfAirDefenseFaculty();
+            try {
+                this.groupList = group.getStudentListGroupOfAirDefenseFaculty();
+            } catch (Absence e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void averageSubjectGradeInGroup(int groupId, String subjectName, String facultyName) {
+    public void averageSubjectGradeInGroup(int groupId, String subjectName, String facultyName) throws Absence {
         float averageSubjectMarkInFaculty = 0;
         switch (facultyName) {
             case AVIATION: {
@@ -32,7 +42,7 @@ public class Faculty {
         System.out.println("Average grade in " + groupId + " group in " + subjectName + ": " + averageSubjectMarkInFaculty);
     }
 
-    private float averageScoreForSubjectInFaculty(List<Student> students, int groupId, String subjectName) {
+    private float averageScoreForSubjectInFaculty(List<Student> students, int groupId, String subjectName) throws Absence {
         int groupCounter = 0;
         float averageSubjectMarkInFaculty = 0;
         for (Student student : students) {
@@ -49,7 +59,10 @@ public class Faculty {
         return averageSubjectMarkInFaculty / groupCounter;
     }
 
-    public List<Student> getGroupList() {
+    public List<Student> getGroupList() throws Absence {
+        if (groupList.isEmpty()) {
+            throw new Absence("There are no groups in faculty!");
+        }
         return groupList;
     }
 
