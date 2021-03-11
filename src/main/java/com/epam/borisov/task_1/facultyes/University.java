@@ -1,6 +1,8 @@
 
 package com.epam.borisov.task_1.facultyes;
 
+import com.epam.borisov.task_1.exception.Absence;
+
 import java.util.List;
 
 public class University {
@@ -13,14 +15,17 @@ public class University {
         this.facultyList = faculties;
     }
 
-    public List<Faculty> getFacultyList() {
+    public List<Faculty> getFacultyList() throws Absence {
+        if (facultyList == null || facultyList.isEmpty()) {
+            throw new Absence("There are no faculty in university!");
+        }
         return facultyList;
     }
 
-    public void averageUniversitySubjectGrade(String subjectName) {
+    public void averageUniversitySubjectGrade(String subjectName) throws Absence {
         float averageTempMark = 0;
         int counter = 0;
-        for (Faculty faculty : facultyList) {
+        for (Faculty faculty : getFacultyList()) {
             for (Student student : faculty.getGroupList()) {
                 for (Subject subject : student.getSubjectList()) {
                     if (subject.getSubjectName().equals(subjectName)) {

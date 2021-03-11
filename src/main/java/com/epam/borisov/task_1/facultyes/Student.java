@@ -1,6 +1,9 @@
 
 package com.epam.borisov.task_1.facultyes;
 
+import com.epam.borisov.task_1.exception.Absence;
+import com.epam.borisov.task_1.exception.MarkRange;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,26 +24,25 @@ public class Student {
         this.secondName = secondName;
         if (idGroup == 711 || idGroup == 712) {
             this.subjectList = group711And712();
-        } else {
+        } else if (idGroup == 511 || idGroup == 512) {
             this.subjectList = group511And512();
         }
     }
 
-    public void averageStudentSubjectsGrade() {
+    public void averageStudentSubjectsGrade() throws Absence {
         float averageValue = 0;
-        for (Subject subject : subjectList) {
+        for (Subject subject : getSubjectList()) {
             averageValue += subject.averageSubjectMark();
         }
         System.out.println("Average grade " + firstName + " " + secondName + ": " + averageValue / subjectList.size());
     }
 
-    public void addMark(String subjectName, int... marks) {
+    public void addMark(String subjectName, int... marks) throws MarkRange, Absence {
         for (Subject subject : getSubjectList()) {
             if (subject.getSubjectName().equals(subjectName)) {
                 for (int i = 0; i < marks.length; i++) {
                     if (marks[i] < 0 || marks[i] > 10)
-                        //throw
-                        System.out.println(marks[i] + "!!!!!");
+                        throw new MarkRange("Out of mark range!");
                 }
                 subject.setMarks(marks);
             }
@@ -63,13 +65,9 @@ public class Student {
         return idGroup;
     }
 
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public List<Subject> getSubjectList() {
-        if (subjectList.size() == 0) {
-            // throw
+    public List<Subject> getSubjectList() throws Absence {
+        if (subjectList == null || subjectList.isEmpty() == true) {
+            throw new Absence("List of subject is empty!");
         }
         return subjectList;
     }
